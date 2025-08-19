@@ -117,26 +117,26 @@ tab1, tab2 = st.tabs(["📊 Food Types", "📈 Claims Over Time"])
 with tab1:
 
     # Load food types from database
-df = pd.read_sql("SELECT Food_Type FROM Food_Listings", conn)
+    df = pd.read_sql("SELECT Food_Type FROM Food_Listings", conn)
 
-# Normalize labels
-df["Food_Type"] = df["Food_Type"].str.strip().str.lower()
+    # Normalize labels
+    df["Food_Type"] = df["Food_Type"].str.strip().str.lower()
 
-# Map to consistent categories
-df["Food_Type"] = df["Food_Type"].replace({
-    "vegan": "Vegan",
-    "vegeterian": "Vegeterian",
-    "non vegeterian": "Non Vegeterian",
-    "vegetables": None  # Remove unwanted category
-})
+    # Map to consistent categories
+    df["Food_Type"] = df["Food_Type"].replace({
+        "vegan": "Vegan",
+        "vegeterian": "Vegeterian",
+        "non vegeterian": "Non Vegeterian",
+        "vegetables": None  # Remove unwanted category
+    })
 
-# Drop any rows with None
-df = df.dropna(subset=["Food_Type"])
+    # Drop any rows with None
+    df = df.dropna(subset=["Food_Type"])
 
-# Count and plot
-food_type_counts = df["Food_Type"].value_counts().reset_index()
-food_type_counts.columns = ["Food_Type", "Count"]
-st.bar_chart(food_type_counts.set_index("Food_Type"))
+    # Count and plot
+    food_type_counts = df["Food_Type"].value_counts().reset_index()
+    food_type_counts.columns = ["Food_Type", "Count"]
+    st.bar_chart(food_type_counts.set_index("Food_Type"))
 
 # Tab 2: Line chart of claims over time
 with tab2:
@@ -356,6 +356,7 @@ WHERE f.Food_ID NOT IN (
 
 df15 = pd.read_sql(query15, conn)
 st.dataframe(df15)
+
 
 
 
