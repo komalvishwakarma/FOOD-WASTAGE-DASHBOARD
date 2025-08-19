@@ -120,7 +120,7 @@ with tab1:
     FROM Food_Listings
     GROUP BY Food_Type
     """, conn)
-    st.bar_chart(food_type_counts.set_index("Food_Type")
+    st.bar_chart(food_type_counts.set_index("Food_Type"))
 
 # Tab 2: Line chart of claims over time
 with tab2:
@@ -340,6 +340,7 @@ WHERE f.Food_ID NOT IN (
 
 df15 = pd.read_sql(query15, conn)
 st.dataframe(df15)
+
 
 
 
